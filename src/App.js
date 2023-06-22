@@ -13,6 +13,7 @@ import NotFound from "./component/NotFound";
 
 import MakeAppointment from "./container/pages/MakeAppointment";
 import Auth1 from "./container/pages/Auth1";
+
 // import Auth from "./container/pages/Auth";
 
 
@@ -28,7 +29,7 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/about' element={<About />} />
         <Route exact path='/appointment' element={<Appointment />} />
-        <Route exact path='/contact' element={<Contact />} />
+        <Route exact path='/contact' element={<Contact />}/>
         <Route exact path='/departsments' element={<Departments />} />
         <Route exact path='/doctors' element={<Doctors />} />
         <Route exact path="*" element={<NotFound /> } />

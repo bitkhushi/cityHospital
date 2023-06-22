@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 
 function Auth(props) {
     const [authType, setAuthType] = useState('Login')
-    // const [passworduser, setPasswordUser] = useState('password')
+    
     return (
         <div>
             <section id="appointment" className="appointment">
                 <div className="container">
                     <div className="section-title">
-                        {/* if(passworduser==='password'){
-                             <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                             <input type="password" className="form-control" name="phone" id="phone" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                             <div className="validate" />
-                         </div>
-                        } */}
+                       
                         {
                             authType === 'Login' ? <h2>Login</h2> :
                                 authType === 'SignUp' ? <h2>Sign Up</h2> : <h2>Reset Password</h2>
@@ -30,28 +25,7 @@ function Auth(props) {
                                     <input type="text" className="form-control" name="name" id="name" placeholder="Your Name" data-rule="name" data-msg="Please enter a Your Name" />
                                     <div className="validate" />
                                 </div>
-                            // <div className="row" >
-
-
-                            //     <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                            //         <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                            //         <div className="validate" />
-                            //     </div>
-                            //     <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                            //         <input type="password" className="form-control" name="phone" id="phone" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                            //         <div className="validate" />
-
-                            //     </div>
-
-                            // </div> :
-
-
-
-                            // <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                            //     <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                            //     <div className="validate" />
-                            // </div>
-
+                            
                         }
                         <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
                             <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
