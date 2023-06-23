@@ -61,18 +61,18 @@ function Contact(props) {
               <form action method="post" role="form" className="php-email-form" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6 form-group">
-                    <input type="text" className="form-control" name="name" id="name" placeholder="Your Name" value={values.name} onChange={handleChange} />
+                    <input type="text" className="form-control" name="name" id="name" placeholder="Your Name" value={values.name} onChange={handleChange} onBlur={handleBlur} />
                     {errors.name && touched.name ? (
-                    <p className="form-control">{errors.name}</p>
+                    <p style={{color:'red'}}>{errors.name}</p>
                     ):null
 
                     }
                   </div>
 
                   <div className="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" value={values.email} onChange={handleChange} />
+                    <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" value={values.email} onChange={handleChange} onBlur={handleBlur} />
                     {errors.email && touched.email ? (
-                    <p className="form-control">{errors.email}</p>
+                    <p style={{color:'red'}}>{errors.email}</p>
                     ):null
 
                     }
@@ -80,17 +80,17 @@ function Contact(props) {
                   </div>
                 </div>
                 <div className="form-group mt-3">
-                  <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" value={values.subject} onChange={handleChange} />
+                  <input type="text" className="form-control" name="subject" id="subject" placeholder="Subject" value={values.subject} onChange={handleChange} onBlur={handleBlur}  />
                   {errors.subject && touched.subject ? (
-                    <p className="form-control">{errors.subject}</p>
+                    <p  style={{color:'red'}}>{errors.subject}</p>
                     ):null
 
                     }
                 </div>
                 <div className="form-group mt-3">
-                  <textarea className="form-control" name="message" id='message' rows={5} placeholder="Message" value={values.message} onChange={handleChange} />
+                  <textarea className="form-control" name="message" id='message' rows={5} placeholder="Message" value={values.message} onChange={handleChange} onBlur={handleBlur} />
                   {errors.message && touched.message ? (
-                    <p className="form-control">{errors.message}</p>
+                    <p  style={{color:'red'}}>{errors.message}</p>
                     ):null
 
                     }

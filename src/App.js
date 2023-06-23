@@ -4,7 +4,7 @@ import Home from "./container/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./container/pages/About";
 import Appointment from "./container/pages/Appointment";
-import Contact from "./container/pages/Contact";
+// import Contact from "./container/pages/Contact";
 import Departments from "./container/pages/Departments";
 import Doctors from "./container/pages/Doctors";
 import Doctor from "./container/pages/Doctor";
@@ -13,6 +13,7 @@ import NotFound from "./component/NotFound";
 
 import MakeAppointment from "./container/pages/MakeAppointment";
 import Auth1 from "./container/pages/Auth1";
+import Contact1 from "./container/pages/Contact1";
 
 // import Auth from "./container/pages/Auth";
 
@@ -29,9 +30,10 @@ function App() {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/about' element={<About />} />
         <Route exact path='/appointment' element={<Appointment />} />
-        <Route exact path='/contact' element={<Contact />}/>
+        {/* <Route exact path='/contact' element={<Contact />}/> */}
         <Route exact path='/departsments' element={<Departments />} />
         <Route exact path='/doctors' element={<Doctors />} />
+        <Route exact path='/conatct1' element={<Contact1 />} />
         <Route exact path="*" element={<NotFound /> } />
         {/* <Route exact path="/auth" element={<Auth />}/> */}
         <Route exact path="/auth"  element={<Auth1 /> } />
