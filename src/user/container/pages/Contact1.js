@@ -10,6 +10,7 @@ function Contact1(props) {
         email: Yup.string().required('please enter a email').email('please enter valid email'),
         subject: Yup.string().required('please enter a subject'),
         message: Yup.string().required('please enter a message').test('message','maximum 5 words allowed.',
+        
         function(val){
             let arr = val.split;
             if(arr.length >5){
@@ -17,7 +18,8 @@ function Contact1(props) {
             }else{
                 return true
             }
-        })
+        }),
+        // selectbox:Yup.string().required('please enter a selectbox')
     });
     const formik = useFormik({
         initialValues: {
@@ -25,6 +27,7 @@ function Contact1(props) {
             email: '',
             subject: '',
             message: '',
+            selectbox:''
         },
         validationSchema: contactschema,
         onSubmit: values => {
@@ -128,6 +131,12 @@ function Contact1(props) {
                                         <span className='error' style={{ color: 'red' }}>{errors.message}</span> : null
                                 }
                             </div>
+                            <div>
+                            
+                            </div>
+                           
+
+
                             <div className="my-3">
                                 <div className="loading">Loading</div>
                                 <div className="error-message" />

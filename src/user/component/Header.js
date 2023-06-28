@@ -37,6 +37,7 @@ function Header(props) {
                                 <li><Link to='/about' className="nav-link scrollto " >About</Link></li>
                                 {/* <li><Link to='/contact'className="nav-link scrollto">Contact</Link></li>  */}
                                 <li><Link to='/conatct1'className="nav-link scrollto">Contact</Link></li> 
+                                
 
                                 {/* <li><Link to='/appointment'className="nav-link scrollto">MakeAppointment</Link></li>  */}
 
