@@ -4,24 +4,14 @@ import UserRoute from "./Routes/UserRoute";
 
 function App() {
   return (
-    <>
-
-
+    
       <Routes>
         <Route path="/admin/*" element={<AdminRoute />} />
         <Route path="/*" element={<UserRoute />} />
 
       </Routes>
 
-
-
-    </>
-
-
-
-
-
-
+    
   );
 }
 

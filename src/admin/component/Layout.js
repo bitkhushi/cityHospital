@@ -16,10 +16,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import MedicationIcon from '@mui/icons-material/Medication';
-import { Label } from '@mui/icons-material';
+import HealingIcon from '@mui/icons-material/Healing';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -88,7 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function Layout() {
+export default function Layout({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -100,15 +99,9 @@ export default function Layout() {
     setOpen(false);
   };
 
-  const Listdata =[
-    {label:'Medicine' , icon:MedicationIcon , to:'/medicine_drawer'},
-    {label:'Doctors' , icon:MedicationIcon , to:'/doctor_drawer'},
-    {label:'Department' , icon:MedicationIcon , to:'/department_drawer'},
-    {label:'Appointment' , icon:MedicationIcon , to:'/appointement_drawer'}
-
-
-
-
+  const Listdata = [
+    { label: 'Medicine', icon: <MedicationIcon />, to: '/admin/medicine_drawer' },
+    { label: 'Doctors', icon: <HealingIcon />, to: '/admin/doctor_drawer' },
   ]
 
   return (
@@ -141,57 +134,39 @@ export default function Layout() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {Listdata.map((v, i) => (
+            <ListItem
+              key={i}
+              disablePadding
+              sx={{ display: 'block' }}
+              to={v.to}
+              component={Link}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
-                }}
-              >
+                }}>
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  }}>
+                  {v.icon}
                 </ListItemIcon>
-                <ListItemText primary={Label} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={v.label} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+       
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+        {children}
         
       </Box>
     </Box>

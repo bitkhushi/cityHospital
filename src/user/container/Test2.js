@@ -29,7 +29,7 @@ function Test2(props) {
         address: Yup.string().required('please enter Your address').test('message', 'Maximum 100 word allowed',
             function (val) {
                 let add = val.split(" ")
-                if (add > 6) {
+                if (add.length > 100) {
                     return true
                 } else {
                     return false
