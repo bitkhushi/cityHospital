@@ -14,6 +14,7 @@ import NotFound from "../user/component/NotFound";
 import Contact1 from "../user/container/pages/Contact1";
 import MakeAppointment from "../user/container/pages/MakeAppointment";
 import Auth1 from "../user/container/pages/Auth1";
+import Medicine from "../user/container/pages/Medicine"
 // import Header1 from "../user/component/Header1";
 // import Auth from "../user/container/pages/Auth";
 
@@ -33,6 +34,7 @@ function UserRoute(props) {
                 <Route exact path="*" element={<NotFound />} />
                 {/* <Route exact path="/auth" element={<Auth />} /> */}
                 <Route exact path="/auth" element={<Auth1 />} />
+                <Route exact path='/medicine' element={<Medicine />}/>
 
                 <Route exact path="/appointment" element={<MakeAppointment />} />
                

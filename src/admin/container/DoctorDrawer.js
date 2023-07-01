@@ -8,8 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
+import { DataGrid } from '@mui/x-data-grid';
 
-export default function FormDialog() {
+export default function DoctorDrawer() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -20,9 +21,12 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  const handleadd =(data)=>{
+  const handleadd = (data) => {
     console.log(data);
+      
+
   }
+  
   let doctorschema = Yup.object({
     img: Yup.string().required('please select the image'),
     name: Yup.string().required().matches(/^[a-zA-Z ]+$/, 'please enter valid name'),
@@ -58,21 +62,21 @@ export default function FormDialog() {
       img: '',
       name: '',
       desg: '',
-      desc:''
+      desc: ''
 
     },
     validationSchema: doctorschema,
-    onSubmit: (values , action) => {
-        action.resetForm()
-        handleClose()
-        handleadd(values)
+    onSubmit: (values, action) => {
+      action.resetForm()
+      handleClose()
+      handleadd(values)
 
       // alert(JSON.stringify(values, null, 2));
     },
   });
   const { values, handleChange, handleBlur, handleSubmit, errors, touched } = formik
 
-  
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -82,7 +86,7 @@ export default function FormDialog() {
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <TextField
-              
+
               margin="dense"
               type="file"
               id="name"
@@ -99,7 +103,7 @@ export default function FormDialog() {
                 <span className='error' style={{ color: 'red' }}>{errors.name}</span> : null
             }
             <TextField
-              
+
               margin="dense"
               id="name"
               name="name"
@@ -116,7 +120,7 @@ export default function FormDialog() {
                 <span className='error' style={{ color: 'red' }}>{errors.name}</span> : null
             }
             <TextField
-              
+
               margin="dense"
               id="name"
               value={values.desg}
@@ -133,7 +137,7 @@ export default function FormDialog() {
                 <span className='error' style={{ color: 'red' }}>{errors.desc}</span> : null
             }
             <TextField
-              
+
               margin="dense"
               id="name"
               name="desc"
@@ -155,6 +159,9 @@ export default function FormDialog() {
             </DialogActions>
           </form>
         </DialogContent>
+       
+       
+    
 
       </Dialog>
     </div>

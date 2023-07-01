@@ -30,14 +30,16 @@ function Header(props) {
                         </div>
                         <nav id="navbar" className="navbar order-last order-lg-0">
                             <ul>
- 
+
                                 <li><Link to='/' className="nav-link scrollto active">Home</Link></li>
                                 <li><Link to='/departsments' className="nav-link scrollto">Departments</Link></li>
                                 <li><Link to='/doctors' className="nav-link scrollto" >Doctors</Link></li>
                                 <li><Link to='/about' className="nav-link scrollto " >About</Link></li>
                                 {/* <li><Link to='/contact'className="nav-link scrollto">Contact</Link></li>  */}
-                                <li><Link to='/conatct1'className="nav-link scrollto">Contact</Link></li> 
-                                
+                                <li><Link to='/conatct1' className="nav-link scrollto">Contact</Link></li>
+                                <li><Link to='/medicine' className="nav-link scrollto">Medicine</Link></li>
+
+
 
                                 {/* <li><Link to='/appointment'className="nav-link scrollto">MakeAppointment</Link></li>  */}
 
@@ -45,13 +47,13 @@ function Header(props) {
                             <i className="bi bi-list mobile-nav-toggle" />
                         </nav>
                         <span className="d-none d-md-inline"><Link to='/appointment' className="appointment-btn scrollto">Make an Appointment</Link></span>
-                      
+
 
 
 
                         <a href="#" className="appointment-btn scrollto">
 
-                            <span className="d-none d-md-inline"><Link to='/auth'className="nav-link scrollto" style={{color:'white'}}>Login/ Signup</Link></span>
+                            <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }}>Login/ Signup</Link></span>
                         </a>
                     </div>
                 </header>
