@@ -16,8 +16,17 @@ import IconButton from '@mui/material/IconButton';
 export default function MedicineDrawer() {
   const [open, setOpen] = React.useState(false);
   const [dis, setDis] = React.useState([]);
-  const [update, setUpdate] = React.useState(false);
-  // const [message, setMessage] = React.useState;
+  const [update, setUpdate] = React.useState(null);
+
+  React.useEffect(() => {
+
+    let localData = JSON.parse(localStorage.getItem("medicine"));
+
+    if (localData !== null) {
+      setDis(localData)
+    }
+
+  }, [])
 
   let medicineschema = Yup.object({
 
@@ -55,36 +64,7 @@ export default function MedicineDrawer() {
     )
 
   })
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      price: '',
-      exdate: '',
-      desc: '',
 
-    },
-    validationSchema: medicineschema,
-    onSubmit: (values, action) => {
-
-      action.resetForm()
-      // handleadd(values)
-      HandleDes()
-      handleClose()
-     
-
-    },
-  });
-  const { values, handleBlur, handleSubmit, errors, touched, handleChange} = formik
-
-  React.useEffect(() => {
-
-    let localData = JSON.parse(localStorage.getItem("medicine"));
-
-    if (localData !== null) {
-      setDis(localData)
-    }
-
-  }, [])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -96,7 +76,7 @@ export default function MedicineDrawer() {
   };
 
 
-  const handleadd = (data) => {
+  const handleSubmitData = (data) => {
     console.log(data);
 
     let rno = Math.floor(Math.random() * 1000);
@@ -111,9 +91,23 @@ export default function MedicineDrawer() {
       localStorage.setItem("medicine", JSON.stringify([newData]))
       setDis([newData])
     } else {
-      localdata.push(newData)
-      localStorage.setItem("medicine", JSON.stringify(localdata))
-      setDis(localdata)
+      if (update) {
+        let Udata=localdata.map((v)=>{
+          if(v.id === data.id){
+            return data;
+          }else{
+            return v;
+          }
+        })
+        console.log(Udata);
+        localStorage.setItem("medicine", JSON.stringify(Udata))
+        setDis(Udata)
+      } else {
+        localdata.push(newData)
+        localStorage.setItem("medicine", JSON.stringify(localdata))
+        setDis(localdata)
+      }
+
     }
 
     handleClose();
@@ -129,35 +123,18 @@ export default function MedicineDrawer() {
     setDis(fdata)
   }
 
-  const handleEdit = (data) => {
+  const handleUpdate = (data) => {
     console.log(data);
-    setOpen(true);
+    handleClickOpen();
     formik.setValues(data);
+   
 
-    setUpdate(true)
-  }
-  const handleUpdate = () => {
-    console.log("update call");
-    // let bb = formik.setValues();
-    // console.log(bb);
-
+    setUpdate(data)
 
   }
-  // const handleChange = (e) => {
-
-  //   setMessage(e.target.value);
-  // };
-  const HandleDes = () => {
-
-    if (update) {
-      // handleChange();
-      handleUpdate();
-    } else {
-      handleadd();
-    }
 
 
-  }
+
   const columns = [
 
     { field: 'name', headerName: 'Name', width: 130 },
@@ -173,7 +150,7 @@ export default function MedicineDrawer() {
           <IconButton aria-label="delete" onClick={() => handleDelete(params.row.id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => handleEdit(params.row)}>
+          <IconButton aria-label="edit" onClick={() => handleUpdate(params.row)}>
             <EditIcon />
           </IconButton>
 
@@ -183,6 +160,26 @@ export default function MedicineDrawer() {
     },
 
   ];
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      price: '',
+      exdate: '',
+      desc: '',
+
+    },
+    validationSchema: medicineschema,
+    onSubmit: (values, action) => {
+
+      action.resetForm()
+      handleSubmitData(values)
+     
+      handleClose()
+
+
+    },
+  });
+  const { values, handleBlur, handleSubmit, errors, touched, handleChange } = formik
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>

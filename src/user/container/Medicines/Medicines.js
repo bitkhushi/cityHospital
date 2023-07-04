@@ -4,7 +4,7 @@ import ListMedicine from './ListMedicine';
 function Medicines(props) {
 
     const [data, setData] = useState([])
-    const [search,setSeacrh]=useState([])
+    const [search,setSearch]=useState('')
     useEffect(() => {
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));
@@ -12,13 +12,20 @@ function Medicines(props) {
             setData(localdata)
         }
     }, [])
-    const handleSeacrh=(val)=>{
+    const handleSearch = (val) => {
+        console.log(val);
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));
-        let fData=localdata.filter((v)=>{
-            v.name.toLowerCase().includes(val.toLowerCase())
+        
+        let fData = data.filter((v) => {
+                v.name.toLowerCase().includes(val.toLowerCase()) ||
+                v.price.toString().includes(val) ||
+                v.exdate.toString().includes(val) ||
+                v.desc.toLowerCase().includes(val.toLowerCase())
+
             console.log(v);
         })
+        setSearch(fData)
         console.log(fData);
 
     }
@@ -35,8 +42,8 @@ function Medicines(props) {
                     </div>
                 </div>
                 <div className="container">
-                    <input type='search' name='search' onChange={(e)=>handleSeacrh(e.target.value)}/>
-                    <ListMedicine mdata={data}/>
+                    <input type='search' name='search' onChange={(e) => handleSearch(e.target.value)} />
+                    <ListMedicine mdata={search.length>0?search:data} />
                 </div>
             </section>
         </div>
