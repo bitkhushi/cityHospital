@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 
 function Auth(props) {
     const [authType, setAuthType] = useState('Login')
+    const [data, setData] = useState([])
+    const navigate=useNavigate()
 
-    let authobj = {} , initval = {}
+   
+    const handleLogin =()=>{
+       let data=localStorage.setItem("logindata",'true')
+       
+            navigate('/')
+        
+    }
+    const handleRegister =()=>{
+
+    }
+    const handleForget =()=>{
+
+    }
+    let authobj = {}, initval = {}
     if (authType === 'Login') {
         authobj = {
             pass: Yup.string().required('please enter a password'),
@@ -41,17 +57,25 @@ function Auth(props) {
     }
     let authschema = Yup.object(authobj)
 
+    
     const formik = useFormik({
         initialValues: initval,
         validationSchema: authschema,
-        enableReinitialize:true,
-        onSubmit: (values,action) => {
-            // alert(JSON.stringify(values, null, 2));
-           action.resetForm()
+        enableReinitialize: true,
+        onSubmit: (values, action) => {
+            action.resetForm()
+       
+            if(authType === 'Login'){
+                handleLogin()
+            }else if(authType === 'SignUp'){
+                handleRegister()
+            }else if(authType === 'forget'){
+                handleForget()
+            }
 
         },
     })
-   
+
     const { values, handleChange, handleBlur, handleSubmit, errors, touched } = formik
     return (
         <div>

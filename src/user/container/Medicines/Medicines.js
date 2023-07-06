@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ListMedicine from './ListMedicine';
+import ListMedicine from "../Medicines/ListMedicine"
 
 function Medicines(props) {
 
     const [data, setData] = useState([])
-    const [search,setSearch]=useState('')
+    const [search,setSearch]=useState([])
     useEffect(() => {
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));
@@ -17,14 +17,12 @@ function Medicines(props) {
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));
         
-        let fData = data.filter((v) => {
+        let fData = localdata.filter((v) => 
                 v.name.toLowerCase().includes(val.toLowerCase()) ||
                 v.price.toString().includes(val) ||
                 v.exdate.toString().includes(val) ||
                 v.desc.toLowerCase().includes(val.toLowerCase())
-
-            console.log(v);
-        })
+        )
         setSearch(fData)
         console.log(fData);
 

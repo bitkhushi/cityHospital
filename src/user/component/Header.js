@@ -1,8 +1,20 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 
 
 function Header(props) {
+    
+
+    let status = localStorage.getItem("logindata")
+
+    const loggeddata = () => {
+        localStorage.removeItem("logindata")
+    }
+
+    
+
+   
+
     return (
         <div>
             <div className="main-header">
@@ -52,8 +64,13 @@ function Header(props) {
 
 
                         <a href="#" className="appointment-btn scrollto">
+                            {
+                                status ?
+                                    <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }} onClick={loggeddata}>Logout</Link></span> :
 
-                            <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }}>Login/ Signup</Link></span>
+                                    <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }}>Login/ Signup</Link></span>
+                            }
+
                         </a>
                     </div>
                 </header>

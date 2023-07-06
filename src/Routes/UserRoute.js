@@ -13,11 +13,17 @@ import VisitingDoctor from "../user/container/pages/VisitingDoctor";
 import NotFound from "../user/component/NotFound";
 import Contact1 from "../user/container/pages/Contact1";
 import MakeAppointment from "../user/container/pages/MakeAppointment";
-import Auth1 from "../user/container/pages/Auth1";
+// import Auth1 from "../user/container/pages/Auth1";
 import Medicines from '../user/container/Medicines/Medicines';
+import Auth from "../user/container/pages/Auth"
+import PrivateRoute from '../user/container/PrivateRoute';
+// import DashBoard from '../admin/container/DashBoard/DashBoard';
+
+
+
 
 // import Header1 from "../user/component/Header1";
-// import Auth from "../user/container/pages/Auth";
+
 
 function UserRoute(props) {
     return (
@@ -25,7 +31,7 @@ function UserRoute(props) {
             <Header />
             <Routes>
                 {/* <Route exact path='/' element={<Home />} /> */}
-                <Route exact path='/' element={<Home/>}/>
+                <Route exact path='/' element={<Home />} />
                 <Route exact path='/about' element={<About />} />
                 <Route exact path='/appointment' element={<Appointment />} />
                 {/* <Route exact path='/contact' element={<Contact />} /> */}
@@ -33,14 +39,17 @@ function UserRoute(props) {
                 <Route exact path='/doctors' element={<Doctors />} />
                 <Route exact path='/conatct1' element={<Contact1 />} />
                 <Route exact path="*" element={<NotFound />} />
-                {/* <Route exact path="/auth" element={<Auth />} /> */}
-                <Route exact path="/auth" element={<Auth1 />} />
-                <Route exact path="/medicines" element={<Medicines />} />
+                <Route exact path="/auth" element={<Auth />} />
+                {/* <Route exact path="/auth" element={<Auth1 />} /> */}
 
-                {/* <Route exact path='/medicine' element={<Medicine />}/> */}
+                <Route  element={<PrivateRoute />} >
+                    {/* <Route exact path='/' element={<DashBoard />} /> */}
+                    <Route exact path='medicines' element={<Medicines />} />
+                </Route>
+
 
                 <Route exact path="/appointment" element={<MakeAppointment />} />
-               
+
 
                 <Route path="/doctor/">
                     <Route exact path=':id' element={<Doctor />} />

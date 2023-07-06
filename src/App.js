@@ -6,7 +6,10 @@ function App() {
   return (
     
       <Routes>
+       <Route>
         <Route path="/admin/*" element={<AdminRoute />} />
+        </Route>
+
         <Route path="/*" element={<UserRoute />} />
 
       </Routes>

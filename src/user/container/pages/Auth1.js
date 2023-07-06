@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 
 function Auth1(props) {
+
     const [authType, setAuthType] = useState('Login')
     const [reset, setReset] = useState(false)
+    const handleLogData =(val)=>{
+        console.log(val);
+    }
+   
     return (
         <div>
+            <form onSubmit={}>
             <section id="appointment" className="appointment">
                 <div className="container">
                     <div className="section-title">
@@ -46,7 +52,7 @@ function Auth1(props) {
                         {
 
                             !reset?<div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                            <input type="password" className="form-control" name="phone" id="phone" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                            <input type="password" className="form-control" name="phone" id="phone" placeholder="Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" onChange={(e) => handleLogData(e.target.value)}/>
                             <div className="validate" />
 
                         </div>:null
@@ -90,6 +96,7 @@ function Auth1(props) {
                     </div>
                 </div>
             </section>
+            </form>
 
         </div>
     );
