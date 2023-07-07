@@ -1,9 +1,10 @@
 import React from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import Button from '../container/UI/Buttons/Button';
 
 
 function Header(props) {
-    
+
 
     let status = localStorage.getItem("logindata")
 
@@ -11,9 +12,9 @@ function Header(props) {
         localStorage.removeItem("logindata")
     }
 
-    
 
-   
+
+
 
     return (
         <div>
@@ -81,3 +82,5 @@ function Header(props) {
 }
 
 export default Header;
+{/* <span className="d-none d-md-inline"></span> */ }
+{/* <span className="d-none d-md-inline"></span> */ }

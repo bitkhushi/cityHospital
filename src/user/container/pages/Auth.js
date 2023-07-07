@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import Button from '../UI/Buttons/Button';
+
 
 
 function Auth(props) {
@@ -143,9 +145,9 @@ function Auth(props) {
 
 
                         {
-                            authType === 'Login' ? <div className="text-center"><button type="submit">Login</button></div> :
-                                authType === 'SignUp' ? <div className="text-center"><button type="submit">Sign Up</button></div> :
-                                    <div className="text-center"><button type="submit">submit</button></div>
+                            authType === 'Login' ? <div className="text-center"> <Button type='primary' disabledbtn={true}>Login</Button>  </div> :
+                                authType === 'SignUp' ? <div className="text-center"><Button type='secondary'>Sign Up</Button></div> :
+                                    <div className="text-center"><Button type='outlined'>Submit</Button></div>
 
                         }
                         {

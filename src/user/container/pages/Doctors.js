@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Doctor from './Doctor';
+// import Doctor from './Doctor';
 const docdata = [
   {
       id: 101,

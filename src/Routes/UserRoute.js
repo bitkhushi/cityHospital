@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Footer from "../user/component/Footer";
-import Header from "../user/component/Header";
+import Header from '../user/component/Header';
 import Home from "../user/container/Home";
 import About from "../user/container/pages/About";
 import Appointment from "../user/container/pages/Appointment";
@@ -17,6 +17,7 @@ import MakeAppointment from "../user/container/pages/MakeAppointment";
 import Medicines from '../user/container/Medicines/Medicines';
 import Auth from "../user/container/pages/Auth"
 import PrivateRoute from '../user/container/PrivateRoute';
+
 // import DashBoard from '../admin/container/DashBoard/DashBoard';
 
 
@@ -28,7 +29,7 @@ import PrivateRoute from '../user/container/PrivateRoute';
 function UserRoute(props) {
     return (
         <>
-            <Header />
+            <Header/>
             <Routes>
                 {/* <Route exact path='/' element={<Home />} /> */}
                 <Route exact path='/' element={<Home />} />
