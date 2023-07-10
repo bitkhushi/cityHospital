@@ -3,27 +3,31 @@ import * as Yup from 'yup'
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import Button from '../UI/Buttons/Button';
+import Input from '../UI/InputBox/Input';
+
+import { Para } from '../UI/SubTitle/SubTitle.style';
+import { Heading2 } from '../UI/Headings/Heading.style';
 
 
 
 function Auth(props) {
     const [authType, setAuthType] = useState('Login')
     const [data, setData] = useState([])
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
-   
-    const handleLogin =()=>{
-       let data=localStorage.setItem("logindata",'true')
-       
-            navigate('/')
-        
-    }
-    const handleRegister =()=>{
 
+    const handleLogin = () => {
+        let data = localStorage.setItem("logindata", 'true')
+
+        navigate('/')
     }
-    const handleForget =()=>{
+    const handleRegister = () => {
 
     }
+    const handleForget = () => {
+
+    }
+    
     let authobj = {}, initval = {}
     if (authType === 'Login') {
         authobj = {
@@ -59,19 +63,19 @@ function Auth(props) {
     }
     let authschema = Yup.object(authobj)
 
-    
+
     const formik = useFormik({
         initialValues: initval,
         validationSchema: authschema,
         enableReinitialize: true,
         onSubmit: (values, action) => {
             action.resetForm()
-       
-            if(authType === 'Login'){
+
+            if (authType === 'Login') {
                 handleLogin()
-            }else if(authType === 'SignUp'){
+            } else if (authType === 'SignUp') {
                 handleRegister()
-            }else if(authType === 'forget'){
+            } else if (authType === 'forget') {
                 handleForget()
             }
 
@@ -86,57 +90,61 @@ function Auth(props) {
                     <div className="section-title">
 
                         {
-                            authType === 'Login' ? <h2>Login</h2> :
-                                authType === 'SignUp' ? <h2>Sign Up</h2> : <h2>Reset Password</h2>
+                            authType === 'Login' ? <Heading2>Login</Heading2> :
+                                authType === 'SignUp' ? <Heading2>Sign Up</Heading2> : <Heading2>Reset Password</Heading2>
 
                         }
-                        <p>Aenean enim orci, suscipit vitae sodales ac, semper in ex. Nunc aliquam eget nibh eu euismod. Donec dapibus
+                        <Para>Aenean enim orci, suscipit vitae sodales ac, semper in ex. Nunc aliquam eget nibh eu euismod. Donec dapibus
                             blandit quam volutpat sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec lacinia finibus tortor.
-                            Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</p>
+                            Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</Para>
                     </div>
                     <form onSubmit={handleSubmit} className="php-email-form">
                         {
                             authType === 'Login' || authType === 'forget' ? null :
                                 <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                                    <input type="text" className="form-control" name="name" id="name" placeholder="Your Name"
+                                    <Input type="text" className="form-control" name="name" id="name" placeholder="Your Name"
                                         value={values.name}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
+                                        errorText={errors.name && touched.name ? errors.name : ''}
                                         data-rule="name" data-msg="Please enter a Your Name" />
                                     <div className="validate" />
-                                    {
+                                    {/* {
                                         errors.name && touched.name ?
                                             <span className='error' style={{ color: 'red' }}>{errors.name}</span> : null
-                                    }
+                                    } */}
                                 </div>
 
                         }
                         <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                            <input type="email" className="form-control" name="email" id="email" placeholder="Your Email"
+                            <Input type="email" className="form-control" name="email" id="email" placeholder="Your Email"
                                 value={values.email}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                errorText={errors.email && touched.email ? errors.email : ''}
                                 data-rule="email" data-msg="Please enter a valid email" />
                             <div className="validate" />
-                            {
+                            {/* {
                                 errors.email && touched.email ?
                                     <span className='error' style={{ color: 'red' }}>{errors.email}</span> : null
-                            }
+                            }  */}
                         </div>
 
                         {
                             authType !== 'forget' ?
                                 <div className="col-md-7 form-group mt-3 mt-md-0" style={{ margin: '0 auto' }}>
-                                    <input type="password" className="form-control" name="pass" id="pass" placeholder="Password"
+                                    <Input type="password" className="form-control" name="pass" id="pass" placeholder="Password"
                                         value={values.pass}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
+                                        errorText={errors.pass && touched.pass ? errors.pass : ''}
+
                                         data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                    <div className="validate" />
+                                    {/* <div className="validate" />
                                     {
                                         errors.pass && touched.pass ?
                                             <span className='error' style={{ color: 'red' }}>{errors.pass}</span> : null
-                                    }
+                                    } */}
 
                                 </div> :
                                 null

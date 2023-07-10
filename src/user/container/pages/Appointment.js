@@ -1,4 +1,6 @@
 import React from 'react';
+import { Heading2 } from '../UI/Headings/Heading.style';
+import { Para } from '../UI/SubTitle/SubTitle.style';
 
 function Appointment(props) {
     return (
@@ -6,10 +8,10 @@ function Appointment(props) {
             <section id="appointment" className="appointment">
                 <div className="container">
                     <div className="section-title">
-                        <h2>Make an Appointment</h2>
-                        <p>Aenean enim orci, suscipit vitae sodales ac, semper in ex. Nunc aliquam eget nibh eu euismod. Donec dapibus
+                        <Heading2>Make an Appointment</Heading2>
+                        <Para>Aenean enim orci, suscipit vitae sodales ac, semper in ex. Nunc aliquam eget nibh eu euismod. Donec dapibus
                             blandit quam volutpat sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec lacinia finibus tortor.
-                            Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</p>
+                            Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</Para>
                     </div>
                     <form action method="post" role="form" className="php-email-form">
                         <div className="row">
