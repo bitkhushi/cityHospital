@@ -153,7 +153,7 @@ function Auth(props) {
 
 
                         {
-                            authType === 'Login' ? <div className="text-center"> <Button type='primary' disabledbtn={true}>Login</Button>  </div> :
+                            authType === 'Login' ? <div className="text-center"> <Button type='primary' onClick={handleLogin}>Login1</Button>  </div> :
                                 authType === 'SignUp' ? <div className="text-center"><Button type='secondary'>Sign Up</Button></div> :
                                     <div className="text-center"><Button type='outlined'>Submit</Button></div>
 
@@ -161,8 +161,6 @@ function Auth(props) {
                         {
                             authType === 'Login' ?
                                 <>
-
-
                                     <span>Already have an Account<a href="#" onClick={() => setAuthType('SignUp')}>SignUp</a></span>
                                     <br />
                                     <a href="#" onClick={() => setAuthType('forget')}>forgot password?</a>

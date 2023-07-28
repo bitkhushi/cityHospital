@@ -51,7 +51,7 @@ function Header(props) {
                                 {/* <li><Link to='/contact'className="nav-link scrollto">Contact</Link></li>  */}
                                 <li><Link to='/conatct1' className="nav-link scrollto">Contact</Link></li>
                                 <li><Link to='/medicines' className="nav-link scrollto">Medicine</Link></li>
-
+                                <li><Link to='/counter' className="nav-link scrollto">Counter</Link></li>
 
 
                                 {/* <li><Link to='/appointment'className="nav-link scrollto">MakeAppointment</Link></li>  */}

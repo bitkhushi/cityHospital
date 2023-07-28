@@ -9,6 +9,12 @@ export const Heading1 = styled.h1`
 export const Heading2 = styled.h2`
 
     color:#2c4964 !important;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    // color: #2c4964;
 
 `;
 export const Heading3 = styled.h3`

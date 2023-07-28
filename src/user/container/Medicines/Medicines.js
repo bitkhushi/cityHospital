@@ -4,7 +4,7 @@ import ListMedicine from "../Medicines/ListMedicine"
 function Medicines(props) {
 
     const [data, setData] = useState([])
-    const [search,setSearch]=useState([])
+    const [search,setSearch]=useState('')
     useEffect(() => {
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));

@@ -18,6 +18,7 @@ export const CardStylePara = styled.p`
 `;
 export const CradStyleIcon = styled.i`
     color: #FF6337 !important;
-    font-size: 40px;
-    // margin: 0 2px;
+    font-size: 16px;
+    margin: 0 2px;
+
 `;

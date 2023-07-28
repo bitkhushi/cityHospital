@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputError, Inputstyle } from './Input.styled';
+import {  InputError, Inputstyle } from './Input.styled';
 
 function Input({ errorText, ...rest }) {
     return (

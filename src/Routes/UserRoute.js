@@ -17,6 +17,7 @@ import MakeAppointment from "../user/container/pages/MakeAppointment";
 import Medicines from '../user/container/Medicines/Medicines';
 import Auth from "../user/container/pages/Auth"
 import PrivateRoute from '../user/container/PrivateRoute';
+import Counter from '../user/container/counter/Counter';
 
 // import DashBoard from '../admin/container/DashBoard/DashBoard';
 
@@ -41,6 +42,7 @@ function UserRoute(props) {
                 <Route exact path='/conatct1' element={<Contact1 />} />
                 <Route exact path="*" element={<NotFound />} />
                 <Route exact path="/auth" element={<Auth />} />
+                <Route exact path="/counter" element={<Counter />} />
                 {/* <Route exact path="/auth" element={<Auth1 />} /> */}
 
                 <Route  element={<PrivateRoute />} >

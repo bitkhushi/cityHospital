@@ -1,4 +1,5 @@
 import React from 'react';
+// import { CradStyleIcon } from '../container/UI/Card/Card.style';
 
 function Footer(props) {
     return (

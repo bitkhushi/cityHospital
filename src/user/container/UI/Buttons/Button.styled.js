@@ -12,12 +12,15 @@ const BaseButton = styled.button`
 
 export const PrimaryButton = styled(BaseButton)`
 
-    background: ${props=>props.disabled ?'gray' :'#FF6337'};
+    
+    background: black;
     color: #fff;
     border:none;
     &:hover {
-        background: ${props=>props.disabled ?'gray' :'#FF6337'};
+        background: red;
     }
+        
+    
 
 
 `
@@ -43,3 +46,7 @@ export const outlinedButton = styled(BaseButton)`
 
 
 `
+// background: ${props=>props.disabled ?'gray' :'#FF6337'};
+// &:hover {
+    //     background: ${props=>props.disabled ?'gray' :'#FF6337'};
+    // }

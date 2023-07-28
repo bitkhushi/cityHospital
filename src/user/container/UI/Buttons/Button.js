@@ -21,7 +21,7 @@ function Button({ children, type, disabledbtn=false}) {
 
     const ButtonsCustom = CheckButton()
     return (
-        <ButtonsCustom disabled>
+        <ButtonsCustom disabled={disabledbtn}>
             {children}
         </ButtonsCustom>
     );
