@@ -2,20 +2,21 @@ import * as ActionTypes from '../ActionTypes'
 
 
 const initstate ={
-    loading:false,
-    medicines:[],
+
+    isloading:false,
+    cart:[],
     error:null
 }
 
-export const MedicineReducer =(state=initstate,action)=>{
+export const cartreducer =(state=initstate,action)=>{
     console.log(action);
 
 
     switch(action.type){
-        case ActionTypes.GET_MEDICINE:
+        case ActionTypes.ADD_TO_CART:
             return{
-                ...state,
-                medicines:action.payload
+                cart: state
+                
             }
             default:
                 return state

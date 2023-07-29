@@ -15,6 +15,7 @@ function DoctorForm2(props) {
 
     const dispatch = useDispatch()
     const doctors=useSelector(state=>state.doctors)
+    console.log(doctors);
     
     const handlesubmit = (data) => {
         console.log(data);

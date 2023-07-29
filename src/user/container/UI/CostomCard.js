@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 
-function CostomCard({values}) {
+function CostomCard({values , btndata ,onclick}) {
     return (
-        <div className='col-md-3'>
+        <div className='col-md-4'>
             <Card
                 style={{
                     width: '18rem'
@@ -32,14 +32,15 @@ function CostomCard({values}) {
                         {values.exdate}
                     </CardText>
                     <CardText>
-                        {values.desc}
-                    </CardText>
+                    {values.desc.length > 50 ? values.desc.substring(0, 50) + "..." : values.desc}                    </CardText>
                     {
-                        values.btnval ?
-                            <Button>
-                                Button
-                            </Button> : null
+                        btndata ?
+                            <Button onClick={()=> onclick(values.id)}>
+                               {btndata}
+                            </Button> : 
+                            null
                     }
+                 
 
                 </CardBody>
             </Card>

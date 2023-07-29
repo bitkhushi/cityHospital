@@ -8,7 +8,7 @@ const initstate ={
 
 }
 export const DoctorReducer =(state=initstate,action)=>{
-    console.log(action);
+   
 
     switch(action.type){
         case ActionTypes.GET_DOCTORS:

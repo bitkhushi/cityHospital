@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import ListMedicine from "../Medicines/ListMedicine"
+import { useDispatch, useSelector } from 'react-redux';
+import { getMedicine } from '../../../redux/action/Medicine.action';
+import { AddToCart } from '../../../redux/action/Cart.action';
 
 function Medicines(props) {
 
     const [data, setData] = useState([])
     const [search,setSearch]=useState('')
+    const dispatch =useDispatch()
+    const medicines=useSelector(state=>state.medicines)
+    console.log(medicines);
     useEffect(() => {
-
-        let localdata = JSON.parse(localStorage.getItem("medicine"));
-        if (localdata) {
-            setData(localdata)
-        }
+        dispatch(getMedicine())
     }, [])
     const handleSearch = (val) => {
         console.log(val);
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));
+      
         
         let fData = localdata.filter((v) => 
                 v.name.toLowerCase().includes(val.toLowerCase()) ||
@@ -26,6 +29,11 @@ function Medicines(props) {
         setSearch(fData)
         console.log(fData);
 
+    }
+
+    const handleAddtoCart =(id)=>{
+        dispatch(AddToCart(id))
+       
     }
     return (
         <div>
@@ -41,7 +49,7 @@ function Medicines(props) {
                 </div>
                 <div className="container">
                     <input type='search' name='search' onChange={(e) => handleSearch(e.target.value)} />
-                    <ListMedicine mdata={search.length>0?search:data} />
+                    <ListMedicine mdata={medicines.medicines} onaddtocart={handleAddtoCart}/>
                 </div>
             </section>
         </div>

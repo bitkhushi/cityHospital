@@ -1,7 +1,8 @@
 import React from 'react';
 import CostomCard from '../UI/CostomCard';
 
-function ListMedicine({mdata}) {
+
+function ListMedicine({mdata , onaddtocart}) {
     return (
         <>
       
@@ -12,9 +13,9 @@ function ListMedicine({mdata}) {
                             <>
                               
 
-
-                                <CostomCard values={v} />
-
+                              
+                                <CostomCard values={v} btndata={'add to cart'} onclick={onaddtocart}/>
+                                
 
                             </>
                         )
