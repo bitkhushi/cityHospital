@@ -10,7 +10,7 @@ function Medicines(props) {
     const [search,setSearch]=useState('')
     const dispatch =useDispatch()
     const medicines=useSelector(state=>state.medicines)
-    console.log(medicines);
+    
     useEffect(() => {
         dispatch(getMedicine())
     }, [])

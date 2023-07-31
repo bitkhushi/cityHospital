@@ -8,7 +8,7 @@ const initstate ={
 }
 
 export const MedicineReducer =(state=initstate,action)=>{
-    console.log(action);
+   
 
 
     switch(action.type){
