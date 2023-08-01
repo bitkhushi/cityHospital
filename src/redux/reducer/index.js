@@ -6,7 +6,14 @@ import { cartreducer } from "./cart.reducer";
 
 
 
-export const rootcounter =combineReducers({
+
+
+
+
+
+
+
+export const rootReducer =combineReducers({
     counter: counterReducer,
     doctors:DoctorReducer,
     medicines:MedicineReducer,

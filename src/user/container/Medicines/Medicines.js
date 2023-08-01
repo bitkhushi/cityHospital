@@ -7,9 +7,11 @@ import { AddToCart } from '../../../redux/action/Cart.action';
 function Medicines(props) {
 
     const [data, setData] = useState([])
-    const [search,setSearch]=useState('')
-    const dispatch =useDispatch()
-    const medicines=useSelector(state=>state.medicines)
+    const [search, setSearch] = useState('')
+    const dispatch = useDispatch()
+    const medicines = useSelector(state => state.medicines)
+
+    
     
     useEffect(() => {
         dispatch(getMedicine())
@@ -18,22 +20,22 @@ function Medicines(props) {
         console.log(val);
 
         let localdata = JSON.parse(localStorage.getItem("medicine"));
-      
-        
-        let fData = localdata.filter((v) => 
-                v.name.toLowerCase().includes(val.toLowerCase()) ||
-                v.price.toString().includes(val) ||
-                v.exdate.toString().includes(val) ||
-                v.desc.toLowerCase().includes(val.toLowerCase())
+
+
+        let fData = localdata.filter((v) =>
+            v.name.toLowerCase().includes(val.toLowerCase()) ||
+            v.price.toString().includes(val) ||
+            v.exdate.toString().includes(val) ||
+            v.desc.toLowerCase().includes(val.toLowerCase())
         )
         setSearch(fData)
         console.log(fData);
 
     }
 
-    const handleAddtoCart =(id)=>{
+    const handleAddtoCart = (id) => {
         dispatch(AddToCart(id))
-       
+
     }
     return (
         <div>
@@ -49,7 +51,7 @@ function Medicines(props) {
                 </div>
                 <div className="container">
                     <input type='search' name='search' onChange={(e) => handleSearch(e.target.value)} />
-                    <ListMedicine mdata={medicines.medicines} onaddtocart={handleAddtoCart}/>
+                    <ListMedicine mdata={medicines.medicines} onaddtocart={handleAddtoCart} />
                 </div>
             </section>
         </div>
