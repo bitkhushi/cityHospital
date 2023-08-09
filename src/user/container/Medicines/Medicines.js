@@ -3,6 +3,7 @@ import ListMedicine from "../Medicines/ListMedicine"
 import { useDispatch, useSelector } from 'react-redux';
 import { getMedicine } from '../../../redux/action/Medicine.action';
 import { AddToCart } from '../../../redux/action/Cart.action';
+// import { addcart } from '../../../redux/slice/CartSlice';
 
 function Medicines(props) {
 

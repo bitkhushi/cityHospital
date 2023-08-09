@@ -9,11 +9,7 @@ const initstate ={
 }
 
 export const cartreducer =(state=initstate,action)=>{
-   
-    
-
-
-    switch(action.type){
+   switch(action.type){
 
         case ActionTypes.ADD_TO_CART:
             let item=state.cart.some((v)=>v.pid===action.payload.pid)
@@ -51,9 +47,9 @@ export const cartreducer =(state=initstate,action)=>{
                 error:null
             }
             case ActionTypes.REMOVE_ITEM:
-            let cartRmove=state.cart.findIndex((v)=>v.pid===action.payload)
+            let cartRemove=state.cart.findIndex((v)=>v.pid===action.payload)
             
-            state.cart.splice(cartRmove,1)
+            state.cart.splice(cartRemove,1)
             
             return{
                 ...state,
