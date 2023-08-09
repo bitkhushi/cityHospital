@@ -1,10 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { decrementCart, incrementCart, removeCart } from '../../../../redux/action/Cart.action';
 
 function Cart(props) {
 
     let cartData = useSelector(state => state.addtocart)
-
+    let dispatch = useDispatch()
     let medicineData = useSelector(state => state.medicines)
 
     let Cartitem = cartData.cart.map((v) => {
@@ -13,29 +14,37 @@ function Cart(props) {
 
         return { ...medData, ...v }
     })
-
-    console.log(Cartitem);
+    const handleincrement = (id) => {
+        dispatch(incrementCart(id))
+    }
+    const handledecrement = (id) => {
+        dispatch(decrementCart(id))
+    }
+    const handleRemove = (id) => {
+        dispatch(removeCart(id))
+    }
+    let total = Cartitem.reduce((acc, v) => acc + (v.qty * v.price), 0)
     return (
         <div>
             <div className="section-title">
-                                <h2>Cart</h2>
-                                </div>
+                <h2>Cart</h2>
+            </div>
             {
                 Cartitem.map((v) => {
-                    return(
+                    return (
                         <section id="contact" className="contact">
-                        <div className="container">
-                            
+                            <div className="container">
+
                                 <div class="row mb-4 d-flex justify-content-between align-items-center">
 
                                     <div class="col-md-3 col-lg-3 col-xl-3">
                                         <h6 class="text-muted">{v.name}</h6>
-                                        <h6 class="text-black mb-0">{v.desc}</h6>
+                                        {/* <h6 class="text-black mb-0">{v.desc}</h6> */}
                                         <h6 class="text-black mb-0">Expiry Date:{v.expiry}</h6>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                         <button class="btn btn-link px-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                            onClick={() => handledecrement(v.id)} disabled={v.qty >= 2 ? false : true}>
                                             <i class="fas fa-minus"></i>
                                         </button>
 
@@ -43,24 +52,30 @@ function Cart(props) {
                                             class="form-control form-control-sm" />
 
                                         <button class="btn btn-link px-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
+                                            onClick={() => handleincrement(v.id)} >
+                                            <i class="fas fa-plus" ></i>
                                         </button>
                                     </div>
                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h6 class="mb-0">{v.price}$</h6>
+                                        <h6 class="mb-0">{v.price * v.qty}$</h6>
                                     </div>
                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                        <a href="#!" class="text-muted" onClick={() => handleRemove(v.pid)}><i class="fas fa-times"></i></a>
                                     </div>
                                 </div>
                             </div>
-                        
 
-                    </section>
+
+                        </section>
+
                     )
                 })
+
             }
+            {/* <div class="col-md-1 col-lg-1 col-xl-1 text-end"> */}
+                <h3>Total Bill : {total}</h3>
+            {/* </div> */}
+
 
         </div>
 

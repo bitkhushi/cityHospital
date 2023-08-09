@@ -1,17 +1,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { decrement, increment } from '../../../redux/action/Counter.action';
+import { decrement, increment } from '../../../redux/slice/CounterSlice';
+// import { decrement, increment } from '../../../redux/slice/CounterSlice';
+// import { decrement, increment } from '../../../redux/action/Counter.action';
 
 function Counter(props) {
     const dispatch=useDispatch()
     const counterval=useSelector(state=>state.counter)
     const HandleInc=()=>{
-        dispatch(increment())
+        dispatch(increment());
     }
+
     const HandleDec=()=>{
-        dispatch(decrement())
+        dispatch(decrement());
     }
+    
 
     return (
         <div>

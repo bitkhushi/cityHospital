@@ -30,6 +30,36 @@ export const cartreducer =(state=initstate,action)=>{
                 isloading:false,
                 error:null
             }
+            case ActionTypes.INC_QTY:
+            let cartInc=state.cart.findIndex((v)=>v.pid===action.payload)
+            
+            state.cart[cartInc].qty++;
+            
+            return{
+                ...state,
+                isloading:false,
+                error:null
+            }
+            case ActionTypes.DEC_QTY:
+            let cartDec=state.cart.findIndex((v)=>v.pid===action.payload)
+            
+            state.cart[cartDec].qty--;
+            
+            return{
+                ...state,
+                isloading:false,
+                error:null
+            }
+            case ActionTypes.REMOVE_ITEM:
+            let cartRmove=state.cart.findIndex((v)=>v.pid===action.payload)
+            
+            state.cart.splice(cartRmove,1)
+            
+            return{
+                ...state,
+                isloading:false,
+                error:null
+            }
             default:
                 return state
     }
