@@ -120,7 +120,7 @@ export default function DoctorDrawerT() {
       
       <DoctorForm onHandleSubmit={handleSubmitData} onUpdate={update} />
       <div style={{ height: 400, width: '60%' }}>
-        <DataGrid
+        {/* <DataGrid
           rows={dis}
           columns={columns}
           initialState={{
@@ -130,7 +130,7 @@ export default function DoctorDrawerT() {
           }}
           pageSizeOptions={[5, 10]}
           checkboxSelection
-        />
+        /> */}
       </div>
     </div>
 

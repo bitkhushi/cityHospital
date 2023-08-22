@@ -1,12 +1,14 @@
 import { type } from '@testing-library/user-event/dist/type';
 import * as ActionTypes from '../ActionTypes'
+import { AddDoctorData, AddMedicineData, getDoctorData } from '../../admin/Common/Apis/Medicines.api';
 
 
 export const getDoctors=()=>(dispatch)=>{
     try{
-        fetch("http://localhost:3001/Doctors")
-        .then((response) => response.json())
-        .then((data) =>dispatch({type:ActionTypes.GET_DOCTORS,payload:data}))
+        // fetch("http://localhost:3001/Doctors")
+        // .then((response) => response.json())
+        getDoctorData()
+        .then((response) =>dispatch({type:ActionTypes.GET_DOCTORS,payload:response.data}))
         .catch((error)=>console.log(error))
         
     }catch(error){
@@ -16,17 +18,18 @@ export const getDoctors=()=>(dispatch)=>{
 
 export const AddDoctor=(data)=>(dispatch)=>{
     try{
-        fetch("http://localhost:3001/Doctors",{
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json",
+        // fetch("http://localhost:3001/Doctors",{
+        //     method:"POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
                 
-              },
-              body: JSON.stringify(data)
-        }) 
+        //       },
+        //       body: JSON.stringify(data)
+        // }) 
 
-        .then((response)=>response.json())
-        .then((data)=>dispatch({type:ActionTypes.ADD_DOCTORS,payload:data}))
+        // .then((response)=>response.json())
+        AddDoctorData(data)
+        .then((response) =>dispatch({type:ActionTypes.GET_DOCTORS,payload:response.data}))
         .catch((error)=>console.log(error))
     }
     catch(error){

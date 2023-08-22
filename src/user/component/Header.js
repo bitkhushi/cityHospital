@@ -5,17 +5,16 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
-
 // import Button from '../container/UI/Buttons/Button';
 
 
 function Header(props) {
 
 
-    let cartdata = useSelector(state => state.addcart);
-   console.log(cartdata);
+    let cartdata = useSelector(state => state.addtocart)
+   
 
-    let Totalitems = cartdata.cart.reduce((acc, v) => acc + v.qty, 0);
+    let Totalitems = cartdata.cart.reduce((acc, v) => acc + v.qty, 0)
    
     let status = localStorage.getItem("logindata")
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { decqty, incqty, removeitem } from '../../../../redux/slice/CartSlice';
 import { decrementCart, incrementCart, removeCart } from '../../../../redux/action/Cart.action';
 
 function Cart(props) {
@@ -84,4 +83,3 @@ function Cart(props) {
 }
 
 export default Cart;
-

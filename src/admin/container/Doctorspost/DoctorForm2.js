@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DoctorForm from '../Doctor/DoctorForm';
-import { AddDoctor, DeleteDoctor, UpdateDoctor, getDoctors } from '../../../redux/action/Doctor.action';
+import { AddDoctor, DeleteDoctor, UpdateDoctor } from '../../../redux/action/Doctor.action';
 import { DataGrid } from '@mui/x-data-grid';
 import { ADD_DOCTORS } from '../../../redux/ActionTypes';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { getdoctors } from '../../../redux/slice/DoctorsSlice';
 
 
 function DoctorForm2(props) {
@@ -28,7 +29,7 @@ function DoctorForm2(props) {
         
     }
     useEffect(() => {
-        dispatch(getDoctors())
+        dispatch(getdoctors())
     
     }, [])
     const handleDelete=(id)=>{
@@ -68,6 +69,7 @@ function DoctorForm2(props) {
     return (
         <div>
             <DoctorForm onHandleSubmit={handlesubmit} onUpdate={update}/>
+            
             <div style={{ height: 400, width: '50%' }}>
                 <DataGrid
                     rows={doctors.doctors}
