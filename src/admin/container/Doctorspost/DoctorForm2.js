@@ -7,7 +7,8 @@ import { ADD_DOCTORS } from '../../../redux/ActionTypes';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { getdoctors } from '../../../redux/slice/DoctorsSlice';
+import { Adddoctors, Deletedoctors, Updatedoctors, getdoctors } from '../../../redux/slice/DoctorsSlice';
+import { CircularProgress } from '@mui/material';
 
 
 function DoctorForm2(props) {
@@ -15,31 +16,31 @@ function DoctorForm2(props) {
     const [update, setUpdate] = React.useState(null);
 
     const dispatch = useDispatch()
-    const doctors=useSelector(state=>state.doctors)
+    const doctors = useSelector(state => state.doctors)
     console.log(doctors);
-    
+
     const handlesubmit = (data) => {
         console.log(data);
-        if(update){
-            dispatch(UpdateDoctor(data))
-        }else{
-            dispatch(AddDoctor(data))
+        if (update) {
+            dispatch(Updatedoctors(data))
+        } else {
+            dispatch(Adddoctors(data))
         }
         setUpdate(null)
-        
+
     }
     useEffect(() => {
         dispatch(getdoctors())
-    
-    }, [])
-    const handleDelete=(id)=>{
 
-        dispatch(DeleteDoctor(id))
+    }, [])
+    const handleDelete = (id) => {
+
+        dispatch(Deletedoctors(id))
     }
-    const handleUpdate=(data)=>{
+    const handleUpdate = (data) => {
         setUpdate(data)
-        
-        
+
+
     }
     const columns = [
 
@@ -47,42 +48,48 @@ function DoctorForm2(props) {
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'degree', headerName: 'Degree', width: 130 },
         {
-          field: 'action',
-          headerName: 'Action',
-          width: 130,
-          renderCell: (params) => (
-            <>
-              <IconButton aria-label="delete" onClick={() => handleDelete(params.row.id)}>
-                <DeleteIcon />
-              </IconButton>
-              <IconButton aria-label="edit" onClick={() => handleUpdate(params.row)}>
-                <EditIcon />
-              </IconButton>
-    
-            </>
-    
-          )
+            field: 'action',
+            headerName: 'Action',
+            width: 130,
+            renderCell: (params) => (
+                <>
+                    <IconButton aria-label="delete" onClick={() => handleDelete(params.row.id)}>
+                        <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="edit" onClick={() => handleUpdate(params.row)}>
+                        <EditIcon />
+                    </IconButton>
+
+                </>
+
+            )
         },
-    
-      ];
-      
+
+    ];
+
     return (
         <div>
-            <DoctorForm onHandleSubmit={handlesubmit} onUpdate={update}/>
-            
-            <div style={{ height: 400, width: '50%' }}>
-                <DataGrid
-                    rows={doctors.doctors}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                        },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
-                />
-            </div>
+            <DoctorForm onHandleSubmit={handlesubmit} onUpdate={update} />
+
+            {
+                doctors.loading ? <CircularProgress color="secondary" /> :
+                    doctors.error !== null ? <p>{doctors.error}</p> :
+                    
+                        <div style={{ height: 400, width: '50%' }}>
+                            <DataGrid
+                                rows={doctors.doctors}
+                                columns={columns}
+                                initialState={{
+                                    pagination: {
+                                        paginationModel: { page: 0, pageSize: 5 },
+                                    },
+                                }}
+                                pageSizeOptions={[5, 10]}
+                                checkboxSelection
+                            />
+                        </div>
+            }
+
         </div>
 
     );

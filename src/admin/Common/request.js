@@ -28,23 +28,23 @@ export const PostRequest = (path, data) => {
     })
 }
 
-// export const UpdateRequest = (path, data) => {
-//     return sendrequest({
-//         method: 'PUT',
-//         url:path + data.id,
-//         headers: {
-//             "Content-Type": "application/json",
-//             // 'Content-Type': 'application/x-www-form-urlencoded',
-//         },
-//         data: JSON.stringify(data)
-//     })
-// }
+export const UpdateRequest = (path, data) => {
+    return sendrequest({
+        method: 'PUT',
+        url:path + data.id,
+        headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: JSON.stringify(data)
+    })
+}
 
-// export const DeleteRequest = (path, id) => {
-//     return sendrequest({
-//         method: 'DELETE',
-//         url:path + id
-//     })
-// }
+export const DeleteRequest = (path, id) => {
+    return sendrequest({
+        method: 'DELETE',
+        url:path + id
+    })
+}
 
 

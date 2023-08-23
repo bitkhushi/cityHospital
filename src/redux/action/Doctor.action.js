@@ -1,6 +1,6 @@
 import { type } from '@testing-library/user-event/dist/type';
 import * as ActionTypes from '../ActionTypes'
-import { AddDoctorData, AddMedicineData, getDoctorData } from '../../admin/Common/Apis/Medicines.api';
+import { AddDoctorData, AddMedicineData, DeleteDoctorData, UpdateDotorcData, getDoctorData } from '../../admin/Common/Apis/Medicines.api';
 
 
 export const getDoctors=()=>(dispatch)=>{
@@ -36,38 +36,74 @@ export const AddDoctor=(data)=>(dispatch)=>{
         console.log(error);
     }
 }
-export const DeleteDoctor=(id)=>(dispatch)=>{
-    try{
-        fetch("http://localhost:3001/Doctors/" + id,{
-            method:"DELETE"
-           
-        }) 
-        .then(dispatch({type:ActionTypes.DELETE_DOCTORS,payload:id}))
-        .catch((error)=>console.log(error))
+export const deleteDoctor = (id) => (dispacth) => {
+    try {
+        // fetch("http://localhost:3004/Doctors/" + id, {
+        //     method: "DELETE" 
+        // })
+        DeleteDoctorData(id)
+            .then(dispacth({type:ActionTypes.DELETE_DOCTORS, payload:id}))
+            .catch((error) => console.log(error))
+    }catch {
+        console.log("error");
     }
-    catch(error){
-        console.log(error);
-    }
-}
-export const UpdateDoctor=(data)=>(dispatch)=>{
-    console.log(data);
-    try{
-        fetch("http://localhost:3001/Doctors/" + data.id,{
-            method:"PUT",
-            headers: {
-                "Content-Type": "application/json",
-                
-              },
-              body: JSON.stringify(data)
-        }) 
 
-        .then((response)=>response.json())
-        .then((data) => dispatch({type:ActionTypes.UPDATE_DOCTORS,payload:data}))
-        .catch((error)=>console.log(error))
-    }
-    catch(error){
+}
+
+export const updateDoctos = (data) => (dispacth) => {
+    console.log(data);
+    try {
+        // fetch("http://localhost:3004/Doctors/" + data.id, {
+        //     method: "PUT",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         // 'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        //     body: JSON.stringify(data)  
+        // })
+        // .then((response) => response.json())
+        // .then((data) => dispacth({type:ActionTypes.DELETE_DOCTOR_DATA, payload:data}))
+        // .catch((error) => console.log(error))
+        UpdateDotorcData(data)
+            .then((response) => dispacth({type:ActionTypes.UPDATE_DOCTORS, payload: response.data}))
+            .catch((error) => console.log(error))
+    }catch(error) {
         console.log(error);
     }
+
 }
+// export const DeleteDoctor=(id)=>(dispatch)=>{
+//     try{
+//         fetch("http://localhost:3001/Doctors/" + id,{
+//             method:"DELETE"
+           
+//         }) 
+//         .then(dispatch({type:ActionTypes.DELETE_DOCTORS,payload:id}))
+//         .catch((error)=>console.log(error))
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+// }
+// export const UpdateDoctor=(data)=>(dispatch)=>{
+//     console.log(data);
+//     try{
+//         fetch("http://localhost:3001/Doctors/" + data.id,{
+//             method:"PUT",
+//             headers: {
+//                 "Content-Type": "application/json",
+                
+//               },
+//               body: JSON.stringify(data)
+//         }) 
+
+//         .then((response)=>response.json())
+//         .then((data) => dispatch({type:ActionTypes.UPDATE_DOCTORS,payload:data}))
+//         .catch((error)=>console.log(error))
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+// }
 
 
