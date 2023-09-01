@@ -1,6 +1,6 @@
 import { type } from '@testing-library/user-event/dist/type';
 import * as ActionTypes from '../ActionTypes'
-import { AddDoctorData, AddMedicineData, DeleteDoctorData, UpdateDotorcData, getDoctorData } from '../../admin/Common/Apis/Medicines.api';
+import { AddDoctorData,DeleteDoctorData, UpdateDotorcData, getDoctorData } from '../../admin/Common/Apis/Doctor.api';
 
 
 export const getDoctors=()=>(dispatch)=>{

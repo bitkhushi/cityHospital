@@ -15,14 +15,22 @@
   ],
   "Doctors": [
     {
-      "id": 2,
-      "name": "kkpatel",
-      "degree": "typicoderrrrrrrrrrrr"
+      "name": "holo",
+      "degree": "dcgjd",
+      "charges": "520",
+      "id": 1
     },
     {
-      "id": 3,
-      "name": "kkpatel43",
-      "degree": "typicode22"
+      "name": "Yolo",
+      "degree": "jhjddfs",
+      "charges": "600",
+      "id": 2
+    },
+    {
+      "name": "Btec",
+      "degree": "ssdass",
+      "charges": "850",
+      "id": 3
     }
   ],
   "medicines": [

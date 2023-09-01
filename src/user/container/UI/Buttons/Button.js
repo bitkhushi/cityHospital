@@ -3,7 +3,7 @@ import { PrimaryButton, SecondaryButton, outlinedButton } from './Button.styled'
 
 
 function Button({ children, type, disabledbtn=false}) {
-    console.log(type);
+  
 
 
     const CheckButton = () => {

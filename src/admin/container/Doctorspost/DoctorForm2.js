@@ -47,6 +47,7 @@ function DoctorForm2(props) {
         { field: 'id', headerName: 'id', width: 130 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'degree', headerName: 'Degree', width: 130 },
+        { field: 'charges', headerName: 'charges', width: 130 },
         {
             field: 'action',
             headerName: 'Action',
@@ -74,7 +75,7 @@ function DoctorForm2(props) {
             {
                 doctors.loading ? <CircularProgress color="secondary" /> :
                     doctors.error !== null ? <p>{doctors.error}</p> :
-                    
+
                         <div style={{ height: 400, width: '50%' }}>
                             <DataGrid
                                 rows={doctors.doctors}

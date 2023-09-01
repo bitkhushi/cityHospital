@@ -10,7 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 function DoctorForm({ onHandleSubmit, onUpdate }) {
   console.log(onUpdate);
   const [open, setOpen] = React.useState(false);
-    
+
   useEffect(() => {
 
     if (onUpdate) {
@@ -20,7 +20,7 @@ function DoctorForm({ onHandleSubmit, onUpdate }) {
 
 
   }, [onUpdate])
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -33,13 +33,15 @@ function DoctorForm({ onHandleSubmit, onUpdate }) {
 
     name: Yup.string().required(),
     degree: Yup.string().required(),
-   
+    charges:Yup.number().required()
+
   })
   const formik = useFormik({
     initialValues: {
       name: '',
       degree: '',
-     
+      charges:''
+
 
     },
     validationSchema: medicineschema,
@@ -71,7 +73,7 @@ function DoctorForm({ onHandleSubmit, onUpdate }) {
               value={values.name}
               onChange={handleChange}
               onBlur={handleBlur}
-              label="Medicine_Name"
+              label="Doctor_Name"
               type="text"
               fullWidth
               variant="standard"
@@ -89,7 +91,7 @@ function DoctorForm({ onHandleSubmit, onUpdate }) {
               onChange={handleChange}
               onBlur={handleBlur}
               label="Degree"
-              type="text" 
+              type="text"
               fullWidth
               variant="standard"
             />
@@ -97,10 +99,27 @@ function DoctorForm({ onHandleSubmit, onUpdate }) {
               errors.degree && touched.degree ?
                 <span className='error' style={{ color: 'red' }}>{errors.degree}</span> : null
             }
-            
-           
-           
-           
+            <TextField
+
+              margin="dense"
+              id="charges"
+              name="charges"
+              value={values.charges}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              label="charges"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            {
+              errors.charges && touched.charges ?
+                <span className='error' style={{ color: 'red' }}>{errors.charges}</span> : null
+            }
+
+
+
+
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
               <Button type='submit' onClick={handleClose}>Sumbit</Button>

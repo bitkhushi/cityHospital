@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { AddDoctorData, DeleteDoctorData, UpdateDotorcData, getDoctorData } from "../../admin/Common/Apis/Medicines.api"
+import { AddDoctorData, DeleteDoctorData, UpdateDotorcData, getDoctorData } from "../../admin/Common/Apis/Doctor.api"
 
 const initstate = {
 
