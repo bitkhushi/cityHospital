@@ -10,7 +10,7 @@ import { Heading2 } from '../UI/Headings/Heading.style';
 import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase';
 import { useDispatch } from 'react-redux';
-import { signupUser } from '../../../redux/action/Auth.action';
+import { loginUser, resetPassword, signupUser } from '../../../redux/action/Auth.action';
 
 
 
@@ -25,18 +25,9 @@ function Auth(props) {
 
         navigate('/')
         try {
-            signInWithEmailAndPassword(auth, values.email, values.pass)
-                .then((userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
-                    console.log("Login SucessFully");
-                    // ...
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode);
-                });
+
+            dispatch(loginUser(values))
+            
 
         } catch (error) {
             console.log(error);
@@ -55,16 +46,17 @@ function Auth(props) {
     }
     const handleForget = (values) => {
         try {
-            sendPasswordResetEmail(auth, values.email)
-                .then(() => {
-                    console.log("Reset link sent.");
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode);
+            dispatch(resetPassword(values))
+            // sendPasswordResetEmail(auth, values.email)
+            //     .then(() => {
+            //         console.log("Reset link sent.");
+            //     })
+            //     .catch((error) => {
+            //         const errorCode = error.code;
+            //         const errorMessage = error.message;
+            //         console.log(errorCode);
                     
-                });
+            //     });
         } catch (error) {
             console.log(error);
         }
