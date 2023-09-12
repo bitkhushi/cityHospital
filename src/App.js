@@ -5,12 +5,16 @@ import PrivateRoute from "./user/container/PrivateRoute";
 import { Provider } from "react-redux";
 import {  persistor, store } from "./redux/store";
 import { PersistGate } from 'redux-persist/integration/react'
+import { SnackbarProvider } from "notistack";
+import Alert from "./admin/component/Alert";
 
 function App() {
   
   return (
+    <SnackbarProvider> 
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        <Alert />
         <Routes>
 
           <Route element={<PrivateRoute />}>
@@ -24,6 +28,7 @@ function App() {
         </Routes>
       </PersistGate>
     </Provider >
+    </SnackbarProvider>
 
 
 

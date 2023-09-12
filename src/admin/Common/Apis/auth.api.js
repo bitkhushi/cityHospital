@@ -14,6 +14,7 @@ export const signupAPI = (values) => {
           console.log(user);
           sendEmailVerification(auth.currentUser)
             .then(() => {
+              resolve({ user: user, message: "email varification sent." })
               console.log("email varification sent.");
             });
         })
@@ -21,6 +22,12 @@ export const signupAPI = (values) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode);
+
+          if (errorCode.localeCompare("auth/email-already-in-use") === 0) {
+            reject(
+              { message: "email is already in used." }
+            )
+          }
 
         });
     } catch (error) {
@@ -36,8 +43,9 @@ export const logInAPI = (values) => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log("Login SucessFully");
-          // ...
+          resolve({user : user , message:"Login SucessFully"})
+          // console.log("Login SucessFully");
+         
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -54,16 +62,16 @@ export const resetPasswordAPI = (values) => {
   console.log("password API");
   return new Promise((resolve, reject) => {
     try {
-       sendPasswordResetEmail(auth, values.email)
-                .then(() => {
-                    console.log("Reset link sent.");
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log(errorCode);
-                    
-                });
+      sendPasswordResetEmail(auth, values.email)
+        .then(() => {
+          console.log("Reset link sent.");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+
+        });
     } catch (error) {
       console.log(error);
     }

@@ -7,7 +7,7 @@ const initstate = {
 }
 
 export const authReducer = (state = initstate, action) => {
-
+    console.log(action);
     switch (action.type) {
         case ActionTypes.SIGNUP_USER:
             return {
@@ -17,9 +17,25 @@ export const authReducer = (state = initstate, action) => {
             return {
                 state
             }
-            case ActionTypes.RESET_PASSWORD:
+        case ActionTypes.RESET_PASSWORD:
+            return {
+                state
+            }
+        case ActionTypes.EMAIL_VARIFICATION:
+            return {
+                state
+            }
+            case ActionTypes.LOGGEDIN_USER:
                 return {
-                    state
+                    user:action.payload,
+                    isloading:false,
+                    error:null
+                }
+            case ActionTypes.AUTH_ERROR:
+                return {
+                    user:[],
+                    isloading:false,
+                    error:action.payload
                 }
 
         default:

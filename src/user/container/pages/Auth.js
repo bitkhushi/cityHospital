@@ -10,7 +10,7 @@ import { Heading2 } from '../UI/Headings/Heading.style';
 import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../../firebase';
 import { useDispatch } from 'react-redux';
-import { loginUser, resetPassword, signupUser } from '../../../redux/action/Auth.action';
+import { authError, loginUser, resetPassword, signupUser } from '../../../redux/action/Auth.action';
 
 
 
@@ -42,6 +42,7 @@ function Auth(props) {
 
         } catch (error) {
             console.log(error);
+            dispatch(authError(error))
         }
     }
     const handleForget = (values) => {

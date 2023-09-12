@@ -16,4 +16,13 @@ export const REMOVE_ITEM="REMOVE_ITEM"
 
 export const SIGNUP_USER="SIGNUP_USER"
 export const LOGIN_USER="LOGIN_USER"
+export const LOGGEDIN_USER="LOGGEDIN_USER"
+
 export const RESET_PASSWORD="RESET_PASSWORD"
+export const EMAIL_VARIFICATION="EMAIL_VARIFICATION"
+export const AUTH_ERROR="AUTH_ERROR"
+
+export const SET_ALERT = "SET_ALERT";
+export const RESET_ALERT = "RESET_ALERT";
+
+
