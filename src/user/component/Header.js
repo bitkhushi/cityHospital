@@ -4,7 +4,8 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutData } from '../../redux/action/Auth.action';
 // import Button from '../container/UI/Buttons/Button';
 
 
@@ -16,13 +17,17 @@ function Header(props) {
 
     let Totalitems = cartdata.cart.reduce((acc, v) => acc + v.qty, 0)
    
-    let status = localStorage.getItem("logindata")
+    // let status = localStorage.getItem("logindata")
 
-    const loggeddata = () => {
-        localStorage.removeItem("logindata")
+    // const loggeddata = () => {
+    //     localStorage.removeItem("logindata")
+    // }
+
+    const auth = useSelector(state=>state.auth)
+    const dispitch = useDispatch()
+    const handlelogout=()=>{
+        dispitch(logoutData)
     }
-
-
 
     const StyledBadge = styled(Badge)(({ theme }) => ({
         '& .MuiBadge-badge': {
@@ -32,7 +37,7 @@ function Header(props) {
             padding: '0 4px',
         },
     }));
-
+    console.log(auth);
     return (
         <div>
             <div className="main-header">
@@ -91,8 +96,8 @@ function Header(props) {
 
                         <a href="#" className="appointment-btn scrollto">
                             {
-                                status ?
-                                    <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }} onClick={loggeddata}>Logout</Link></span> :
+                               auth.user ?
+                                    <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }} onClick={handlelogout}>Logout</Link></span> :
 
                                     <span className="d-none d-md-inline"><Link to='/auth' className="nav-link scrollto" style={{ color: 'white' }}>Login/ Signup</Link></span>
                             }

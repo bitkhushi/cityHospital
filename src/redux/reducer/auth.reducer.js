@@ -1,7 +1,7 @@
 import * as ActionTypes from '../ActionTypes'
 
 const initstate = {
-    user: [],
+    user: null,
     isloading: false,
     error: null
 }
@@ -33,10 +33,16 @@ export const authReducer = (state = initstate, action) => {
                 }
             case ActionTypes.AUTH_ERROR:
                 return {
-                    user:[],
+                    user:null,
                     isloading:false,
                     error:action.payload
                 }
+                case ActionTypes.LOG_OUT:
+                    return {
+                        user:null,
+                        isloading:false,
+                        error:null
+                    }
 
         default:
             return state

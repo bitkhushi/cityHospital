@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
 
 
@@ -77,3 +77,12 @@ export const resetPasswordAPI = (values) => {
     }
   })
 }
+export const LogOutApi = (values) => {
+  signOut(auth).then(() => {
+    console.log("Sign-out successful."); 
+  }).catch((error) => {
+    // An error happened.
+  });
+  
+}
+

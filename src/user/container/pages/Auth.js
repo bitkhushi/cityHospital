@@ -21,12 +21,17 @@ function Auth(props) {
 
     const dispatch = useDispatch()
     const handleLogin = (values) => {
-        let data = localStorage.setItem("logindata", 'true')
+        // let data = localStorage.setItem("logindata", 'true')
 
-        navigate('/')
+        // navigate('/')
         try {
 
-            dispatch(loginUser(values))
+            dispatch(loginUser({
+                data:values,
+                callback:(route)=>{
+                    navigate(route)
+                }
+            }))
             
 
         } catch (error) {

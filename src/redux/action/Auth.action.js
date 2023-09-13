@@ -20,6 +20,12 @@ export const  emailverifivation =(data)=>(dispatch)=>{
     dispatch({type:ActionTypes.EMAIL_VARIFICATION,payload:data})
 }
 export const  authError =(data)=>(dispatch)=>{
-    console.log(data);
+    
     dispatch({type:ActionTypes.AUTH_ERROR,payload:data})
 }
+
+export const  logoutData =()=>(dispatch)=>{
+    
+    dispatch({type:ActionTypes.LOG_OUT})
+}
+

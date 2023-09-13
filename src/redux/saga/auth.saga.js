@@ -1,7 +1,7 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as ActionTypes from '../ActionTypes'
-import { logInAPI, resetPasswordAPI, signupAPI } from '../../admin/Common/Apis/auth.api'
-import { authError, emailverifivation, loggedIUser } from '../action/Auth.action'
+import { LogOutApi, logInAPI, resetPasswordAPI, signupAPI } from '../../admin/Common/Apis/auth.api'
+import { authError, emailverifivation, loggedIUser, logoutData } from '../action/Auth.action'
 import { setAlert } from '../action/alert.action'
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
@@ -17,9 +17,11 @@ function* signupUser(action) {
     }
 }
 function* loginuser(action) {
+    console.log(action);
     try {
-        const user = yield call(logInAPI, action.payload)
+        const user = yield call(logInAPI, action.payload.data)
         yield put( loggedIUser(user.user) )
+        action.payload.callback("/")
     } catch (e) {
         // yield put({ type: 'USER_FETCH_FAILED', message: e.message })
     }
@@ -33,6 +35,16 @@ function* resetPassword(action) {
     }
 }
 
+function* logoutUser(action) {
+    console.log(action);
+    try {
+        const user = yield call(LogOutApi)
+        
+        action.payload.callback("/auth")
+    } catch (e) {
+        // yield put({ type: 'USER_FETCH_FAILED', message: e.message })
+    }
+}
 //watcher saga
 function* signupsaga() {
     yield takeEvery(ActionTypes.SIGNUP_USER, signupUser)
@@ -43,11 +55,16 @@ function* loginsaga() {
 function* resetpsdsaga() {
     yield takeEvery(ActionTypes.RESET_PASSWORD, resetPassword)
 }
+
+function* logoutsaga() {
+    yield takeEvery(ActionTypes.LOG_OUT, logoutUser)
+}
 export default function* authsaga(){
     yield all([
         signupsaga(),
         loginsaga(),
-        resetpsdsaga()
+        resetpsdsaga(),
+        logoutsaga()
       ])
 }
 
