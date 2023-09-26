@@ -26,6 +26,7 @@ function Header(props) {
     const auth = useSelector(state=>state.auth)
     const dispitch = useDispatch()
     const handlelogout=()=>{
+        console.log("logout");
         dispitch(logoutData)
     }
 
