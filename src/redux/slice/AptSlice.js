@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { db, storage } from "../../firebase";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 
 const initstate = {
@@ -33,30 +34,107 @@ export const Addapt = createAsyncThunk(
     'apt/Addapt',
     async (data) => {
         try {
-            console.log(data);
-            const docRef = await addDoc(collection(db, "apt"), data);
-            console.log("Document written with ID: ", docRef.id);
-            return { id: docRef.id, ...data }
+            const fileName = Math.floor(Math.random() * 1000) + "_" + data.pre.name
+            const storageRef = ref(storage, 'apt/' + fileName);
+
+            const rdata = {}
+
+            await uploadBytes(storageRef, data.pre).then(async (snapshot) => {
+                await getDownloadURL(snapshot.ref)
+                    .then(async (url) => {
+                        const docRef = await addDoc(collection(db, "apt"), { ...data, "pre": url, "file_Name": fileName });
+                        rdata = { id: docRef.id, ...data, "pre": url, "file_Name": fileName }
+
+                    })
+            });
+        } catch (e) {
+            console.error("Error updating document: ", e);
+            throw e;
+        }
+    }
+    // async (data) => {
+    //     try {
+    //         console.log(data);
+    //         const docRef = await addDoc(collection(db, "apt"), data);
+    //         console.log("Document written with ID: ", docRef.id);
+    //         return { id: docRef.id, ...data }
+    //     } catch (e) {
+    //         console.error("Error adding document: ", e);
+    //     }
+
+    // }
+)
+export const Deleteapt = createAsyncThunk(
+    'apt/Deleteapt',
+    async (data) => {
+
+
+
+        try {
+            const desertRef = ref(storage, 'apt/' + data.file_Name);
+            await deleteObject(desertRef).then(async () => {
+                await deleteDoc(doc(db, "apt", data.id));
+                console.log("delete sucessfull");
+
+            })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+            return data.id;
+
         } catch (e) {
             console.error("Error adding document: ", e);
         }
 
+
+
     }
 )
-export const Deleteapt = createAsyncThunk(
-    // 'Doctors / deleteDoctors',
-    // async (id) => {
-    //     await DeleteDoctorData(id)
-    //     return id;
-    // }
-)
 export const Updateapt = createAsyncThunk(
-    // 'Doctors / updateDoctors',
-    // async (data) => {
-    //     const response = await UpdateDotorcData(data)
-    //     return response.data;
-    // }
-)
+    'Apt/Updateapt',
+    async (values) => {
+        try {
+            if (typeof values.pre === 'string') {
+                const aptDocRef = doc(db, "apt", values.id);
+
+                await updateDoc(aptDocRef, values);
+                console.log('Update successful');
+            } else {
+                const rdata = {}
+                const desertRef = ref(storage, 'apt/' + values.file_Name);
+
+                await deleteObject(desertRef).then(async () => {
+                    console.log("old image delete");
+
+                    const fileName = Math.floor(Math.random() * 1000) + "_" + values.pre.name
+                    const storageRef = ref(storage, 'apt/' + fileName);
+
+                    await uploadBytes(storageRef, values.pre).then(async (snapshot) => {
+                        await getDownloadURL(snapshot.ref)
+                            .then(async (url) => {
+                                console.log("new image upload");
+
+                                const aptDocRef = doc(db, "apt", values.id);
+
+                                await updateDoc(aptDocRef, { ...values, "pre": url, "file_Name": fileName });
+
+                                rdata = { ...values, "pre": url, "file_Name": fileName }
+
+                            })
+                    });
+                })
+
+                return rdata;
+            }
+
+            return values;
+        } catch (e) {
+            console.error("Error updating document: ", e);
+            throw e;
+        }
+
+    }
+);
 
 const handleLoading = (state) => {
     state.loading = true;
@@ -70,58 +148,12 @@ const handleError = (state, action) => {
 }
 
 
-// export const aptSlice = createSlice({
-//     name: 'apt',
-//     initialState: initstate,
-
-//     reducers: {},
-//     extraReducers: (builder) => {
-//         builder.addCase(getapt.pending, handleLoading)
-//         builder.addCase(getapt.fulfilled, (state, action) => {
-//             console.log(action);
-//             state.apt = action.payload;
-//             state.loading = false;
-//             state.error = null;
-//         })
-//         builder.addCase(getapt.rejected, handleError)
-//         builder.addCase(Addapt.pending, handleLoading)
-//         builder.addCase(Addapt.fulfilled, (state, action) => {
-
-//             state.apt = state.apt.concat(action.payload);
-//             state.loading = false;
-//             state.error = null;
-//         })
-//         builder.addCase(Addapt.rejected, handleError)
-//         builder.addCase(Deleteapt.fulfilled, (state, action) => {
-
-//             state.apt = state.apt.filter((v) => v.id !== action.payload)
-//             state.loading = false;
-//             state.error = null;
-//         })
-//         builder.addCase(Updateapt.fulfilled, (state, action) => {
-
-//             state.apt = state.apt.map((v) => {
-//                 if (v.id === action.payload.id) {
-//                     return action.payload;
-//                 } else {
-//                     return v;
-//                 }
-//             })
-//             state.loading = false;
-//             state.error = null;
-//         })
-
-//     }
-// })
 
 export const aptSlice = createSlice({
     name: 'apt',
     initialState: initstate,
-    reducers: {
-        // Define your synchronous reducers here if needed
-        // For example:
-        // updateApt: (state, action) => { ... }
-    },
+    reducers: {},
+
     extraReducers: (builder) => {
         builder
             .addCase(getapt.pending, handleLoading)
@@ -131,6 +163,7 @@ export const aptSlice = createSlice({
                 state.error = null;
             })
             .addCase(getapt.rejected, handleError)
+
             .addCase(Addapt.pending, handleLoading)
             .addCase(Addapt.fulfilled, (state, action) => {
                 state.apt = state.apt.concat(action.payload);
@@ -138,23 +171,30 @@ export const aptSlice = createSlice({
                 state.error = null;
             })
             .addCase(Addapt.rejected, handleError)
-        // Add other action reducers as needed here
-        // .addCase(Deleteapt.fulfilled, (state, action) => {
-        //     state.apt = state.apt.filter((v) => v.id !== action.payload);
-        //     state.loading = false;
-        //     state.error = null;
-        // })
-        // .addCase(Updateapt.fulfilled, (state, action) => {
-        //     state.apt = state.apt.map((v) => {
-        //         if (v.id === action.payload.id) {
-        //             return action.payload;
-        //         } else {
-        //             return v;
-        //         }
-        //     });
-        //     state.loading = false;
-        //     state.error = null;
-        // });
+
+            .addCase(Deleteapt.pending, handleLoading)
+            .addCase(Deleteapt.fulfilled, (state, action) => {
+                state.apt = state.apt.filter((v) => v.id !== action.payload);
+                state.loading = false;
+                state.error = null;
+            })
+            .addCase(Deleteapt.rejected, handleError)
+
+            .addCase(Updateapt.pending, handleLoading)
+            .addCase(Updateapt.fulfilled, (state, action) => {
+                state.apt = state.apt.map((v) => {
+                    if (v.id === action.payload.id) {
+                        return action.payload;
+                    } else {
+                        return v;
+                    }
+                })
+                // .addCase(Updateapt.rejected, handleError);
+
+
+                state.loading = false;
+                state.error = null;
+            });
     },
 });
 

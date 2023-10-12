@@ -2,17 +2,29 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Addapt, getapt } from '../../../redux/slice/AptSlice';
+import { Addapt, Deleteapt, Updateapt, getapt } from '../../../redux/slice/AptSlice';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Appointment(props) {
     const [value, setValue] = React.useState(0);
 
+    const [update, setUpdate] = useState(false)
+
     const apt = useSelector(state => state.apt);
+
+
 
     console.log(apt);
 
@@ -33,6 +45,7 @@ function Appointment(props) {
         date: Yup.date().required('Please enter a date'),
         department: Yup.string().required('Please enter a department name'),
         message: Yup.string().required('Please enter a message'),
+        pre: Yup.mixed().required()
     });
 
     const formik = useFormik({
@@ -43,20 +56,38 @@ function Appointment(props) {
             date: '',
             department: '',
             message: '',
+            pre: ''
         },
         validationSchema: appschema,
         enableReinitialize: true,
         onSubmit: (values, action) => {
-            dispatch(Addapt(values))
+            if (update) {
+                dispatch(Updateapt(values))
+            } else {
+                dispatch(Addapt(values))
+            }
+
             setValue(1);
             dispatch(getapt());
+            setUpdate(false)
             action.resetForm();
         },
     });
 
-    const { values, handleChange, handleBlur, handleSubmit, errors, touched } = formik
+    const { values, handleChange, handleBlur, handleSubmit, errors, touched, setValues, setFieldValue } = formik
 
-    console.log(value);
+
+
+
+    const handleDelete = (row) => {
+        dispatch(Deleteapt(row))
+    }
+
+    const handleEdit = (data) => {
+        setValues(data);
+        setValue(0);
+        setUpdate(true)
+    }
 
     return (
         <div>
@@ -146,7 +177,19 @@ function Appointment(props) {
                                             <span className='error' style={{ color: 'red' }}>{errors.department}</span> : null
                                     }
                                 </div>
+                                <div className="col-md-4 form-group mt-3">
+                                    Prescription : <input type="file" name="pre" className="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars"
+                                        onChange={(event) => setFieldValue("pre", event.target.files[0])} />
+                                    {
+                                        errors.pre && touched.pre ?
+                                            <span className='error' style={{ color: 'red' }}>{errors.pre}</span> : null
+                                    }
+                                    <img src={typeof values.pre ==="string" ? values.pre:URL.createObjectURL(values.pre)} width={'100px'} height={'100px'} />
+                                </div>
+
+
                             </div>
+
                             <div className="form-group mt-3">
                                 <textarea className="form-control" name="message" rows={5} placeholder="Message (Optional)" defaultValue={""}
                                     value={values.message}
@@ -168,7 +211,7 @@ function Appointment(props) {
                             <div className="text-center"><button type="submit">Make an Appointment</button></div>
                         </form> :
                             <>
-                                <h2>My Appointments</h2>
+                                {/* <h2>My Appointments</h2>
                                 <div className='row'>
 
                                     {
@@ -185,7 +228,43 @@ function Appointment(props) {
                                     }
 
 
-                                </div>
+                                </div> */}
+                                <TableContainer component={Paper}>
+                                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell> Name</TableCell>
+                                                <TableCell> Image</TableCell>
+                                                <TableCell align="center">Email</TableCell>
+                                                <TableCell align="center">Phone No.</TableCell>
+                                                <TableCell align="center">Date</TableCell>
+                                                <TableCell align="center">Department</TableCell>
+                                                <TableCell align="center">Actions</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {apt.apt.map((row) => (
+                                                <TableRow
+                                                    key={row.id}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                    
+                                                    <TableCell align="center">{row.name}</TableCell>
+                                                    <TableCell align="center">
+                                                        <img src={row.pre} width={'100px'} height={'100px'} />
+                                                    </TableCell>
+                                                    <TableCell align="center">{row.email}</TableCell>
+                                                    <TableCell align="center">{row.phone}</TableCell>
+                                                    <TableCell align="center">{row.date}</TableCell>
+                                                    <TableCell align="center">{row.department}</TableCell>
+                                                    <TableCell align="center">
+                                                        <EditCalendarIcon onClick={() => handleEdit(row)} />
+                                                        <DeleteIcon onClick={() => handleDelete(row)} /></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
 
                             </>
                     }

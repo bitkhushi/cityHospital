@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,3 +26,29 @@ const analytics = getAnalytics(app);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
+
+
+
+// async (values) => {
+//   try {
+//       const fileName = Math.floor(Math.random() * 1000) + "_" + data.pre.name
+//       const storageRef = ref(storage, 'apt/' + fileName);
+
+//       uploadBytes(storageRef, data.pre).then((snapshot) => {
+//           getDownloadURL(ref(storage, 'images/stars.jpg'))
+//               .then((url) => { 
+                  
+//               })
+//       });
+
+//       const aptDocRef = doc(db, "apt", values.id);
+
+//       await updateDoc(aptDocRef, values);
+//       console.log('Update successful');
+//       return values;
+//   } catch (e) {
+//       console.error("Error updating document: ", e);
+//       throw e;
+//   }
+// }
